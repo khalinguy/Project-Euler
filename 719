@@ -1,0 +1,51 @@
+package main;
+/*Problem 719. Number Splitting https://projecteuler.net/problem=719
+ * 
+ * 
+*/
+
+public class NumberSplitting {
+	
+	 public static void main(String[] args) {
+		 	long t = 10000L;
+
+		 	System.out.println(sumOfSNumbers(t));
+	    }
+	 
+	 public static String sumOfSNumbers(long j) {
+	       long total = 0;
+	        
+	       for (long i = 2; i <= j; i++) {
+	    	   // Square root of i need to be an integer 
+	    	   if(Math.sqrt(i)% 1 != 0.0) {
+	    		   continue;
+	    	   }
+	    	   if (isSNumber(Math.round(Math.sqrt(i)), i)) {		    	   	
+	    	   		total += i;
+	    	   }
+	       }
+	       
+	       return Long.toString(total);
+	     }
+	 
+	 // Check if given number is a S number
+	 public static boolean isSNumber(long sqr, long original) {
+		 
+		 if (original < sqr) return false;
+		 if (original == sqr) return true;
+		 
+		 long t = 10;
+		 
+		 while (t < original) {
+			
+			 long q = original / t; //Quotient
+			 long r = original % t; //Remainder
+			 
+			 if ((r < sqr)  && isSNumber(sqr - r, q)) return true;
+			 
+			 t *= 10;
+		 }
+		 
+		 return false;
+	 }
+}
